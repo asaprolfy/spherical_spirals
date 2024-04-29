@@ -84,12 +84,18 @@ def synthetic_test():
                                                      n_features=n_features,
                                                      random_state=random_state)
 
+    print(f"len(data_dict) = {len(data_dict)}")
+    print(f"X.shape = {X.shape}")
+    print(f"len(X[0]) = {len(X[0])}")
+
     # neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
     # plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
     #                'sklearn synthetic', neo_results, labels)
 
-    for num_spirals in range(1, 10, 1):
-        for num_points in range(1, 10, 1):
+    plot_embedding('pca', 'synthetic', X_pca, y)
+
+    for num_spirals in range(1, 11, 1):
+        for num_points in range(1, 11, 1):
             neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
             plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
                            'sklearn synthetic', neo_results, labels)

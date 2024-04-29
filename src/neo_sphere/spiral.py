@@ -10,7 +10,7 @@ class NeoSpiral(object):
             self.num_points = num_points
         else:
             self.num_spirals = 10
-            self.num_points = 5000
+            self.num_points = 10
         self.num_select = len(vector)
         ####################################
         # generate_spaced_spherical_spiral()
