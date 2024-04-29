@@ -73,19 +73,15 @@ class NeoSpiral(object):
             points = np.vstack((self.x_adjusted, self.y_adjusted, self.z_adjusted)).T
             pcd = o3d.geometry.PointCloud()
             pcd.points = o3d.utility.Vector3dVector(points)
-
             # Estimate normals
             pcd.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.1, max_nn=30))
-
             # Poisson surface reconstruction
             self.mesh_poisson, densities = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(pcd, depth=9)
             self.original_mesh_poisson = self.mesh_poisson  # Keep the original mesh
-
             # Optional: trim the mesh based on the densities
             densities = np.asarray(densities)
             density_threshold = np.percentile(densities, 50)
             self.mesh_poisson = self.mesh_poisson.select_by_index((densities > density_threshold).nonzero()[0])
-
             # Optionally set a uniform color for both meshes
             self.original_mesh_poisson.paint_uniform_color([0.7, 0.7, 0.7])  # Gray color for original mesh
             self.mesh_poisson.paint_uniform_color([1, 0.706, 0])  # Light orange for the trimmed mesh
