@@ -13,12 +13,6 @@ class SphericalSpiral:
         self.num_select = num_select
         self.generate_spaced_spherical_spiral()
         self.select_evenly_spaced_points()
-        # self.x, self.y, self.z = None, None, None
-        # self.x_selected, self.y_selected, self.z_selected = None, None, None
-        # self.x_adjusted, self.y_adjusted, self.z_adjusted = None, None, None
-        # self.mesh: o3d.geometry.TriangleMesh
-        # self.mesh_poisson: o3d.geometry.TriangleMesh
-        # self.original_mesh_poisson: o3d.geometry.TriangleMesh
 
     def generate_spaced_spherical_spiral(self):
         theta = np.linspace(0, self.num_spirals * 2 * np.pi, self.num_points)

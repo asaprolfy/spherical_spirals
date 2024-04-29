@@ -8,7 +8,7 @@ from neo_sphere.spiral import NeoSpiral, calc_nums
 
 from spirals_umap_tsne import load_data, apply_tsne, apply_umap, apply_spiral, apply_neo
 from spirals_umap_tsne import plot_mnist, manual_apply_neo, dict_manual_apply_neo, plot_embedding
-from spirals_umap_tsne import apply_pca
+from spirals_umap_tsne import apply_pca, dict_apply_neo, dict_apply_neo_meshes
 
 from synthetic import generate_synthetic
 
@@ -128,7 +128,27 @@ def synthetic_test():
     #                'sklearn synthetic', neo_results, labels)
 
     num_spirals, num_points = calc_nums(len(X[0]))
-    neo_results, labels = apply_neo(data_dict)
+    neo_results, labels = dict_apply_neo(data_dict)
+    plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
+                   'sklearn synthetic', neo_results, labels)
+
+
+def mesh_test():
+    print('Begin mesh_test')
+    random_state = 42
+    n_samples = 4000
+    n_centers = 5
+    n_features = 128
+    data_dict, X, y, X_pca, pca = generate_synthetic(n_samples=n_samples,
+                                                     n_centers=n_centers,
+                                                     n_features=n_features,
+                                                     random_state=random_state)
+    print(f"len(data_dict) = {len(data_dict)}")
+    print(f"X.shape = {X.shape}")
+    print(f"len(X[0]) = {len(X[0])}")
+
+    num_spirals, num_points = calc_nums(len(X[0]))
+    neo_results, labels = dict_apply_neo_meshes(data_dict)
     plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
                    'sklearn synthetic', neo_results, labels)
 
@@ -143,6 +163,8 @@ def main(args):
         mnist_comparison()
     elif '--mnist' in args:
         spiral_mnist_test()
+    elif '--mesh' in args:
+        mesh_test()
     elif '--synthetic' in args or argc == 0:
         synthetic_test()
     else:

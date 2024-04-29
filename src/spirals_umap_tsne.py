@@ -96,6 +96,19 @@ def dict_apply_neo(data_dict):
     return np.array(centroids), np.array(labels)
 
 
+def dict_apply_neo_meshes(data_dict):
+    centroids = []
+    labels = []
+    for item in data_dict.values():
+        vector = item['features']
+        label = item['cluster']
+        spiral = NeoSpiral(vector=vector, construct_mesh=True, construct_mesh_poisson=True)
+        centroids.append(spiral.get_centroid())
+        spiral.visualize_mesh()
+        labels.append(label)
+    return np.array(centroids), np.array(labels)
+
+
 def dict_manual_apply_neo(data_dict, num_spirals, num_points):
     centroids = []
     labels = []
