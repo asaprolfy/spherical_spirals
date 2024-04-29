@@ -1,11 +1,13 @@
 import numpy as np
-import umap
+from umap import UMAP
 from sklearn.manifold import TSNE
 from sklearn.datasets import fetch_openml
 import plotly.express as px
+import matplotlib.pyplot as plt
 
 from spherical_spiral import SphericalSpiral
 from neo_sphere.spiral import NeoSpiral
+
 
 def load_data():
     fashion_mnist = fetch_openml('Fashion-MNIST', version=1)
@@ -27,7 +29,7 @@ def apply_tsne(data):
 
 def apply_umap(data):
     try:
-        reducer = umap.UMAP(n_components=3, random_state=42)
+        reducer = UMAP(n_components=3, random_state=42)
         return reducer.fit_transform(data)
     except Exception as e:
         print(f"An error occurred while applying UMAP: {e}")
@@ -52,14 +54,22 @@ def apply_neo(data):
     try:
         centroids = []
         for vector in data:
-            spirals = NeoSpiral(num_select=len(vector), num_points=1000)
-            spirals.adjust_points(vector)
-            centroids.append(spirals.find_centroid())
-            spirals = None
+            spiral = NeoSpiral(vector=vector)
+            centroids.append(spiral.get_centroid())
         return np.array(centroids)
     except Exception as e:
         print(f"An error occurred while applying spherical spirals: {e}")
         return None
+
+
+def plot_mnist(algo_name, result, labels):
+    plt.figure(figsize=(10, 8))
+    scatter = plt.scatter(result[:, 0], result[:, 1], c=labels, cmap='viridis', alpha=0.6)
+    plt.colorbar(scatter, label='Class Labels')
+    plt.title(f"{algo_name} of Fashion MNIST Embeddings")
+    plt.xlabel(f"{algo_name} 1")
+    plt.ylabel(f"{algo_name} 2")
+    plt.show()
 
 
 if __name__ == '__main__':
