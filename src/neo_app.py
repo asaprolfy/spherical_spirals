@@ -36,9 +36,19 @@ def spiral_props_loop():
     #     neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=i)
     #     plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {i} |", neo_results, labels)
 
-    for i in range(10, 200, 10):
-        neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=i)
-        plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {i} |", neo_results, labels)
+    # for i in range(10, 200, 10):
+    #     neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=i)
+    #     plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {i} |", neo_results, labels)
+
+    # for i in range(1, 10, 1):
+    #     neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=i)
+    #     plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {i} |", neo_results, labels)
+
+    for j in range(1, 10, 1):
+        num_spirals = j
+        for i in range(4, 8, 1):
+            neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=i)
+            plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {i} |", neo_results, labels)
 
 
 if __name__ == '__main__':
