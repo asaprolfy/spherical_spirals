@@ -39,18 +39,8 @@ class NeoSpiral(object):
         adjusted_points = np.vstack((self.x_adjusted, self.y_adjusted, self.z_adjusted)).T
         self.centroid = np.mean(adjusted_points, axis=0)
 
-    def adjust_points(self, magnitudes):
-        norms = np.sqrt(self.x_selected ** 2 + self.y_selected ** 2 + self.z_selected ** 2)
-        x_unit = self.x_selected / norms
-        y_unit = self.y_selected / norms
-        z_unit = self.z_selected / norms
-        self.x_adjusted = self.x_selected + x_unit * magnitudes
-        self.y_adjusted = self.y_selected + y_unit * magnitudes
-        self.z_adjusted = self.z_selected + z_unit * magnitudes
-
-    def find_centroid(self):
-        adjusted_points = np.vstack((self.x_adjusted, self.y_adjusted, self.z_adjusted)).T
-        return np.mean(adjusted_points, axis=0)
+    def get_centroid(self):
+        return self.centroid
 
 
 if __name__ == "__main__":
