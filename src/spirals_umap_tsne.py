@@ -4,6 +4,8 @@ from sklearn.manifold import TSNE
 from sklearn.datasets import fetch_openml
 import plotly.express as px
 
+from spherical_spiral import SphericalSpiral
+from neo_sphere.spiral import NeoSpiral
 
 def load_data():
     fashion_mnist = fetch_openml('Fashion-MNIST', version=1)
@@ -30,3 +32,35 @@ def apply_umap(data):
     except Exception as e:
         print(f"An error occurred while applying UMAP: {e}")
         return None
+
+
+def apply_spiral(data):
+    try:
+        centroids = []
+        for vector in data:
+            spirals = SphericalSpiral(num_select=len(vector), num_points=1000)
+            spirals.adjust_points(vector)
+            centroids.append(spirals.find_centroid())
+            spirals = None
+        return np.array(centroids)
+    except Exception as e:
+        print(f"An error occurred while applying spherical spirals: {e}")
+        return None
+
+
+def apply_neo(data):
+    try:
+        centroids = []
+        for vector in data:
+            spirals = NeoSpiral(num_select=len(vector), num_points=1000)
+            spirals.adjust_points(vector)
+            centroids.append(spirals.find_centroid())
+            spirals = None
+        return np.array(centroids)
+    except Exception as e:
+        print(f"An error occurred while applying spherical spirals: {e}")
+        return None
+
+
+if __name__ == '__main__':
+    print('Error: not a main file')
