@@ -3,16 +3,15 @@ import open3d as o3d
 
 
 class NeoSpiral(object):
-    def __init__(self, vector, manual=False, num_spirals=10, num_points=5000, num_select=125):
+    def __init__(self, vector, manual=False, num_spirals=10, num_points=5000):
         self.vector = vector
         if manual:
             self.num_spirals = num_spirals
             self.num_points = num_points
-            self.num_select = num_select
         else:
             self.num_spirals = 10
             self.num_points = 5000
-            self.num_select = len(vector)
+        self.num_select = len(vector)
         ####################################
         # generate_spaced_spherical_spiral()
         theta = np.linspace(0, self.num_spirals * 2 * np.pi, self.num_points)

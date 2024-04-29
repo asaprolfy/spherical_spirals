@@ -62,6 +62,18 @@ def apply_neo(data):
         return None
 
 
+def manual_apply_neo(data, num_spirals, num_points):
+    try:
+        centroids = []
+        for vector in data:
+            spiral = NeoSpiral(vector=vector, manual=True, num_spirals=num_spirals, num_points=num_points)
+            centroids.append(spiral.get_centroid())
+        return np.array(centroids)
+    except Exception as e:
+        print(f"An error occurred while applying spherical spirals: {e}")
+        return None
+
+
 def plot_mnist(algo_name, result, labels):
     plt.figure(figsize=(10, 8))
     scatter = plt.scatter(result[:, 0], result[:, 1], c=labels, cmap='viridis', alpha=0.6)
