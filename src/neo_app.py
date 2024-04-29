@@ -35,7 +35,7 @@ def spiral_props_loop():
     print(f"shape: {images[0].shape}")
     print(f"len(vector): {len(images[0])}")
 
-    num_spirals = 10
+    # num_spirals = 10
 
     # for i in range(500, 10000, 100):
     #     neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=i)
@@ -61,12 +61,18 @@ def spiral_props_loop():
     #         neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=i)
     #         plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {i} |", neo_results, labels)
 
-    for i in range(4, 10, 1):
-        num_points = i
-        for j in range(0, 3, 1):
-            num_spirals = np.power(num_points, j)
-            neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=num_points)
-            plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {num_points} |", neo_results, labels)
+    # for i in range(4, 10, 1):
+    #     num_points = i
+    #     for j in range(0, 3, 1):
+    #         num_spirals = np.power(num_points, j)
+    #         neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=num_points)
+    #         plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {num_points} |", neo_results, labels)
+
+    calc_num_spirals, calc_num_points = calc_nums(len(images[0]))
+    neo_results = apply_neo(images)
+    plot_mnist(f"neo | num_spirals: {calc_num_spirals} | num_points: {calc_num_points} |",
+               neo_results,
+               labels)
 
 
 def synthetic_test():
@@ -114,7 +120,13 @@ def synthetic_test():
                    'sklearn synthetic', neo_results, labels)
 
 
+def calc_nums(vector_len):
+    num_spirals = int(np.ceil(np.sqrt(vector_len) / 2))
+    num_points = np.power(2, num_spirals)
+    return num_spirals, num_points
+
+
 if __name__ == '__main__':
     # main()
-    # spiral_props_loop()
-    synthetic_test()
+    spiral_props_loop()
+    # synthetic_test()

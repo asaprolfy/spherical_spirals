@@ -11,7 +11,7 @@ class NeoSpiral(object):
         else:
             # self.num_spirals = 10
             # self.num_points = 10
-            self.num_spirals = int(np.ceil(np.sqrt(len(X[0])) / 2))
+            self.num_spirals = int(np.ceil(np.sqrt(len(vector)) / 2))
             self.num_points = np.power(2, self.num_spirals)
         self.num_select = len(vector)
         ####################################
