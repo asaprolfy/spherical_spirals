@@ -3,7 +3,7 @@ from hashlib import md5
 import numpy as np
 import open3d as o3d
 
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
