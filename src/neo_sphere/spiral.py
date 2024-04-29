@@ -11,8 +11,7 @@ class NeoSpiral(object):
         else:
             # self.num_spirals = 10
             # self.num_points = 10
-            self.num_spirals = int(np.ceil(np.sqrt(len(vector)) / 2))
-            self.num_points = np.power(2, self.num_spirals)
+            self.num_spirals, self.num_points = calc_nums(len(vector))
         self.num_select = len(vector)
         ####################################
         # generate_spaced_spherical_spiral()
@@ -42,6 +41,13 @@ class NeoSpiral(object):
 
     def get_centroid(self):
         return self.centroid
+
+
+def calc_nums(vector_len):
+    num_spirals = int(np.ceil(np.sqrt(vector_len) / 2))
+    num_points = num_spirals * 2
+    # num_points = np.power(num_spirals, 2)
+    return num_spirals, num_points
 
 
 if __name__ == "__main__":

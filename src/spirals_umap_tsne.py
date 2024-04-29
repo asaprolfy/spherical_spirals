@@ -4,6 +4,7 @@ from sklearn.manifold import TSNE
 from sklearn.datasets import fetch_openml
 import plotly.express as px
 import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
 
 from spherical_spiral import SphericalSpiral
 from neo_sphere.spiral import NeoSpiral
@@ -16,6 +17,15 @@ def load_data():
     np.random.seed(42)
     indices = np.random.choice(len(images), 10000, replace=False)
     return images[indices], labels[indices]
+
+
+def apply_pca(data):
+    try:
+        pca = PCA(n_components=2, random_state=42)
+        return pca.fit_transform(data)
+    except Exception as e:
+        print(f"An error occured while applying PCA: {e}")
+        return None
 
 
 def apply_tsne(data):

@@ -1,10 +1,11 @@
 import numpy as np
 
 from spherical_spiral import SphericalSpiral
-from neo_sphere.spiral import NeoSpiral
+from neo_sphere.spiral import NeoSpiral, calc_nums
 
 from spirals_umap_tsne import load_data, apply_tsne, apply_umap, apply_spiral, apply_neo
 from spirals_umap_tsne import plot_mnist, manual_apply_neo, dict_manual_apply_neo, plot_embedding
+from spirals_umap_tsne import apply_pca
 
 from synthetic import generate_synthetic
 
@@ -68,6 +69,11 @@ def spiral_props_loop():
     #         neo_results = manual_apply_neo(images, num_spirals=num_spirals, num_points=num_points)
     #         plot_mnist(f"neo | num_spirals: {num_spirals} | num_points: {num_points} |", neo_results, labels)
 
+    pca_results = apply_pca(images)
+    plot_mnist(f"pca |",
+               pca_results,
+               labels)
+
     calc_num_spirals, calc_num_points = calc_nums(len(images[0]))
     neo_results = apply_neo(images)
     plot_mnist(f"neo | num_spirals: {calc_num_spirals} | num_points: {calc_num_points} |",
@@ -118,12 +124,6 @@ def synthetic_test():
     neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
     plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
                    'sklearn synthetic', neo_results, labels)
-
-
-def calc_nums(vector_len):
-    num_spirals = int(np.ceil(np.sqrt(vector_len) / 2))
-    num_points = np.power(2, num_spirals)
-    return num_spirals, num_points
 
 
 if __name__ == '__main__':
