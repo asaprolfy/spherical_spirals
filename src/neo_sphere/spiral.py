@@ -25,7 +25,19 @@ class NeoSpiral(object):
         # select_evenly_spaced_points()
         indices = np.linspace(0, len(self.x) - 1, self.num_select, dtype=int)
         self.x_selected, self.y_selected, self.z_selected = self.x[indices], self.y[indices], self.z[indices]
-        self.x_adjusted, self.y_adjusted, self.z_adjusted = self.x_selected, self.y_selected, self.z_selected
+        ####################################
+        # adjust_points()
+        norms = np.sqrt(self.x_selected ** 2 + self.y_selected ** 2 + self.z_selected ** 2)
+        x_unit = self.x_selected / norms
+        y_unit = self.y_selected / norms
+        z_unit = self.z_selected / norms
+        self.x_adjusted = self.x_selected + x_unit * vector
+        self.y_adjusted = self.y_selected + y_unit * vector
+        self.z_adjusted = self.z_selected + z_unit * vector
+        ####################################
+        # find_centroid()
+        adjusted_points = np.vstack((self.x_adjusted, self.y_adjusted, self.z_adjusted)).T
+        self.centroid = np.mean(adjusted_points, axis=0)
 
     def adjust_points(self, magnitudes):
         norms = np.sqrt(self.x_selected ** 2 + self.y_selected ** 2 + self.z_selected ** 2)
