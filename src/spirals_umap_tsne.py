@@ -74,11 +74,33 @@ def manual_apply_neo(data, num_spirals, num_points):
         return None
 
 
+def dict_manual_apply_neo(data_dict, num_spirals, num_points):
+    centroids = []
+    labels = []
+    for item in data_dict.values():
+        vector = item['features']
+        label = item['cluster']
+        spiral = NeoSpiral(vector=vector, manual=True, num_spirals=num_spirals, num_points=num_points)
+        centroids.append(spiral.get_centroid())
+        labels.append(label)
+    return np.array(centroids), np.array(labels)
+
+
 def plot_mnist(algo_name, result, labels):
     plt.figure(figsize=(10, 8))
     scatter = plt.scatter(result[:, 0], result[:, 1], c=labels, cmap='viridis', alpha=0.6)
     plt.colorbar(scatter, label='Class Labels')
     plt.title(f"{algo_name} of Fashion MNIST Embeddings")
+    plt.xlabel(f"{algo_name} 1")
+    plt.ylabel(f"{algo_name} 2")
+    plt.show()
+
+
+def plot_embedding(algo_name, dataset_name, results, labels):
+    plt.figure(figsize=(10, 8))
+    scatter = plt.scatter(results[:, 0], results[:, 1], c=labels, cmap='viridis', alpha=0.6)
+    plt.colorbar(scatter, label='Class Labels')
+    plt.title(f"{algo_name} | {dataset_name} Embeddings")
     plt.xlabel(f"{algo_name} 1")
     plt.ylabel(f"{algo_name} 2")
     plt.show()
