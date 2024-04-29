@@ -29,6 +29,8 @@ def spiral_props_loop():
     print('Begin spiral_props_loop')
 
     images, labels = load_data()
+    print(f"shape: {images[0].shape}")
+    print(f"len(vector): {len(images[0])}")
 
     num_spirals = 10
 
