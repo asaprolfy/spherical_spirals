@@ -9,8 +9,10 @@ class NeoSpiral(object):
             self.num_spirals = num_spirals
             self.num_points = num_points
         else:
-            self.num_spirals = 10
-            self.num_points = 10
+            # self.num_spirals = 10
+            # self.num_points = 10
+            self.num_spirals = int(np.ceil(np.sqrt(len(X[0])) / 2))
+            self.num_points = np.power(2, self.num_spirals)
         self.num_select = len(vector)
         ####################################
         # generate_spaced_spherical_spiral()

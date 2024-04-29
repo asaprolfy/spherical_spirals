@@ -94,11 +94,24 @@ def synthetic_test():
 
     plot_embedding('pca', 'synthetic', X_pca, y)
 
-    for num_spirals in range(1, 11, 1):
-        for num_points in range(1, 11, 1):
-            neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
-            plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
-                           'sklearn synthetic', neo_results, labels)
+    # for num_spirals in range(1, 11, 1):
+    #     for num_points in range(1, 11, 1):
+    #         neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
+    #         plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
+    #                        'sklearn synthetic', neo_results, labels)
+
+    # for num_spirals in range(1, 11, 1):
+    #     for num_points in range(15, 101, 5):
+    #         neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
+    #         plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
+    #                        'sklearn synthetic', neo_results, labels)
+
+    num_spirals = int(np.ceil(np.sqrt(len(X[0])) / 2))
+    # num_points = int(len(X[0]) / num_spirals)
+    num_points = np.power(2, num_spirals)
+    neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
+    plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
+                   'sklearn synthetic', neo_results, labels)
 
 
 if __name__ == '__main__':
