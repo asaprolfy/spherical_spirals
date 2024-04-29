@@ -84,6 +84,18 @@ def manual_apply_neo(data, num_spirals, num_points):
         return None
 
 
+def dict_apply_neo(data_dict):
+    centroids = []
+    labels = []
+    for item in data_dict.values():
+        vector = item['features']
+        label = item['cluster']
+        spiral = NeoSpiral(vector=vector)
+        centroids.append(spiral.get_centroid())
+        labels.append(label)
+    return np.array(centroids), np.array(labels)
+
+
 def dict_manual_apply_neo(data_dict, num_spirals, num_points):
     centroids = []
     labels = []

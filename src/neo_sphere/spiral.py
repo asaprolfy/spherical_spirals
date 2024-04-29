@@ -44,9 +44,11 @@ class NeoSpiral(object):
 
 
 def calc_nums(vector_len):
-    num_spirals = int(np.ceil(np.sqrt(vector_len) / 2))
-    num_points = num_spirals * 2
+    # num_spirals = int(np.ceil(np.sqrt(vector_len) / 2))
+    num_spirals = int(np.ceil(np.sqrt(vector_len) / 4))
+    # num_points = num_spirals * 2
     # num_points = np.power(num_spirals, 2)
+    num_points = int(vector_len / num_spirals)
     return num_spirals, num_points
 
 

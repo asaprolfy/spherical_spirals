@@ -1,3 +1,6 @@
+# import os
+import sys
+
 import numpy as np
 
 from spherical_spiral import SphericalSpiral
@@ -10,7 +13,7 @@ from spirals_umap_tsne import apply_pca
 from synthetic import generate_synthetic
 
 
-def main():
+def mnist_comparison():
     print('Begin neo_app.py')
 
     images, labels = load_data()
@@ -28,7 +31,7 @@ def main():
     plot_mnist('neo', neo_results, labels)
 
 
-def spiral_props_loop():
+def spiral_mnist_test():
     print('Begin spiral_props_loop')
 
     images, labels = load_data()
@@ -118,15 +121,33 @@ def synthetic_test():
     #         plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
     #                        'sklearn synthetic', neo_results, labels)
 
-    num_spirals = int(np.ceil(np.sqrt(len(X[0])) / 2))
-    # num_points = int(len(X[0]) / num_spirals)
-    num_points = np.power(2, num_spirals)
-    neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
+    # num_spirals = int(np.ceil(np.sqrt(len(X[0])) / 2))
+    # num_points = np.power(2, num_spirals)
+    # neo_results, labels = dict_manual_apply_neo(data_dict, num_spirals=num_spirals, num_points=num_points)
+    # plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
+    #                'sklearn synthetic', neo_results, labels)
+
+    num_spirals, num_points = calc_nums(len(X[0]))
+    neo_results, labels = apply_neo(data_dict)
     plot_embedding(f"neo | num_spirals: {num_spirals} | num_points: {num_points}",
                    'sklearn synthetic', neo_results, labels)
 
 
+def main(args):
+    argc = len(args)
+    if argc > 1:
+        print('Error: Too many arguments')
+        return
+
+    if '--mnist-comparison' in args:
+        mnist_comparison()
+    elif '--mnist' in args:
+        spiral_mnist_test()
+    elif '--synthetic' in args or argc == 0:
+        synthetic_test()
+    else:
+        print('Error: Invalid arguments')
+
+
 if __name__ == '__main__':
-    # main()
-    spiral_props_loop()
-    # synthetic_test()
+    main(sys.argv[1:])
