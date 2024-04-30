@@ -158,7 +158,7 @@ class NeoSpiral(object):
                     end_point = vertices[triangle[(i + 1) % 3]]
                     ax1.plot([start_point[0], end_point[0]], [start_point[1], end_point[1]],
                              [start_point[2], end_point[2]], 'k', linewidth=0.5)
-            ax1.set_title('Original Mesh')
+            ax1.set_title(f"{self.title} Original Mesh")
             ax1.set_xlabel('X')
             ax1.set_ylabel('Y')
             ax1.set_zlabel('Z')
@@ -173,7 +173,7 @@ class NeoSpiral(object):
                     end_point = vertices[triangle[(i + 1) % 3]]
                     ax2.plot([start_point[0], end_point[0]], [start_point[1], end_point[1]],
                              [start_point[2], end_point[2]], 'k', linewidth=0.5)
-            ax2.set_title('Trimmed Mesh')
+            ax2.set_title(f"{self.title} Trimmed Mesh")
             ax2.set_xlabel('X')
             ax2.set_ylabel('Y')
             ax2.set_zlabel('Z')
