@@ -105,6 +105,7 @@ def dict_apply_neo_meshes(data_dict):
         spiral = NeoSpiral(vector=vector, construct_mesh=True, construct_mesh_poisson=True)
         centroids.append(spiral.get_centroid())
         spiral.visualize_mesh()
+        spiral.visualize_mesh_matplotlib()
         labels.append(label)
     return np.array(centroids), np.array(labels)
 
