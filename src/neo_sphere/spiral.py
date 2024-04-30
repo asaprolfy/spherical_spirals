@@ -97,8 +97,7 @@ class NeoSpiral(object):
         pcd.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.1, max_nn=30))
         distances = pcd.compute_nearest_neighbor_distance()
         avg_dist = np.mean(distances)
-        radii = [avg_dist, avg_dist * 2]
-        radii = o3d.utility.DoubleVector(radii)
+        radii = o3d.utility.DoubleVector([avg_dist, avg_dist * 2])
         self.mesh = o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(pcd=pcd, radii=radii)
 
     def reconstruct_surface_mesh_poisson(self):
