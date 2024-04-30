@@ -19,8 +19,6 @@ class NeoSpiral(object):
             self.num_spirals = num_spirals
             self.num_points = num_points
         else:
-            # self.num_spirals = 10
-            # self.num_points = 10
             self.num_spirals, self.num_points = calc_nums(len(vector))
         self.num_select = len(vector)
         ####################################
@@ -144,6 +142,45 @@ class NeoSpiral(object):
             plt.show()
         else:
             print("Mesh has not been generated yet.")
+
+    def visualize_mesh_matplotlib(self):
+        if hasattr(self, 'original_mesh_poisson') and hasattr(self, 'mesh_poisson'):
+            # Prepare for two side-by-side plots
+            fig = plt.figure(figsize=(20, 10))
+            # Visualize original mesh
+            ax1 = fig.add_subplot(121, projection='3d')
+            vertices = np.asarray(self.original_mesh_poisson.vertices)
+            triangles = np.asarray(self.original_mesh_poisson.triangles)
+            ax1.scatter(vertices[:, 0], vertices[:, 1], vertices[:, 2], s=1, c='r')
+            for triangle in triangles:
+                for i in range(3):
+                    start_point = vertices[triangle[i]]
+                    end_point = vertices[triangle[(i + 1) % 3]]
+                    ax1.plot([start_point[0], end_point[0]], [start_point[1], end_point[1]],
+                             [start_point[2], end_point[2]], 'k', linewidth=0.5)
+            ax1.set_title('Original Mesh')
+            ax1.set_xlabel('X')
+            ax1.set_ylabel('Y')
+            ax1.set_zlabel('Z')
+            # Visualize trimmed mesh
+            ax2 = fig.add_subplot(122, projection='3d')
+            vertices = np.asarray(self.mesh_poisson.vertices)
+            triangles = np.asarray(self.mesh_poisson.triangles)
+            ax2.scatter(vertices[:, 0], vertices[:, 1], vertices[:, 2], s=1, c='r')
+            for triangle in triangles:
+                for i in range(3):
+                    start_point = vertices[triangle[i]]
+                    end_point = vertices[triangle[(i + 1) % 3]]
+                    ax2.plot([start_point[0], end_point[0]], [start_point[1], end_point[1]],
+                             [start_point[2], end_point[2]], 'k', linewidth=0.5)
+            ax2.set_title('Trimmed Mesh')
+            ax2.set_xlabel('X')
+            ax2.set_ylabel('Y')
+            ax2.set_zlabel('Z')
+            plt.tight_layout()
+            plt.show()
+        else:
+            print("Poisson meshes have not been generated yet.")
 
 
 def calc_nums(vector_len):
