@@ -2,8 +2,9 @@
 
 ## Authors
 
-- [Elvis Kimara (kelvis24)](https://github.com/kelvis24)
-- [Rolf Anderson (asaprolfy)](https://github.com/asaprolfy)
+- [Elvis Kimara (ekimara@iastate.edu)](https://github.com/kelvis24)
+- [Tara Munjuluri (taram27@iastate.edu)](https://github.com/TaraMunjuluri)
+- [Rolf Anderson (rolf@iastate.edu)](https://github.com/asaprolfy)
 
 ## About
 
