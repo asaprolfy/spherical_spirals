@@ -1,5 +1,10 @@
 # Spherical_Spirals
 
+## Authors
+
+- [Elvis Kimara (kelvis24)](https://github.com/kelvis24)
+- [Rolf Anderson (asaprolfy)](https://github.com/asaprolfy)
+
 ## About
 
 This repo contains a new method for visualizing and comparing latent vectors.
